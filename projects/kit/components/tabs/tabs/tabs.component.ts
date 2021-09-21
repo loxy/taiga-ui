@@ -16,6 +16,10 @@ import {
     Renderer2,
 } from '@angular/core';
 import {
+    MUTATION_OBSERVER_INIT,
+    MutationObserverService,
+} from '@ng-web-apis/mutation-observer';
+import {
     EMPTY_QUERY,
     itemsQueryListObservable,
     moveFocus,
@@ -33,6 +37,11 @@ import {TuiTabComponent} from '../tab/tab.component';
 import {TUI_TAB_ACTIVATE} from '../tab/tab.providers';
 import {TAB_ACTIVE_CLASS} from '../tabs.const';
 
+// TODO: remove in ivy compilation
+export const OBSERVER_INIT = {
+    childList: true,
+};
+
 // @dynamic
 @Component({
     selector: 'tui-tabs, nav[tuiTabs]',
@@ -42,7 +51,15 @@ import {TAB_ACTIVE_CLASS} from '../tabs.const';
     host: {
         class: 'tui-zero-scrollbar',
     },
-    providers: [TuiDestroyService, TuiResizeService],
+    providers: [
+        TuiDestroyService,
+        TuiResizeService,
+        MutationObserverService,
+        {
+            provide: MUTATION_OBSERVER_INIT,
+            useValue: OBSERVER_INIT,
+        },
+    ],
 })
 export class TuiTabsComponent implements AfterViewChecked {
     @Input()
@@ -93,11 +110,9 @@ export class TuiTabsComponent implements AfterViewChecked {
     }
 
     get tabs(): ReadonlyArray<HTMLElement> {
-        const tabs = Array.from(
-            this.elementRef.nativeElement.querySelectorAll('[tuiTab]'),
+        return Array.from(
+            this.elementRef.nativeElement.querySelectorAll<HTMLElement>('[tuiTab]'),
         );
-
-        return tabs as Array<HTMLElement>;
     }
 
     get activeElement(): HTMLElement | null {

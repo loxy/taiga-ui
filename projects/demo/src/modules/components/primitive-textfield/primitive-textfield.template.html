@@ -15,12 +15,12 @@
         >
             <p>
                 Simplified version of
-                <a tuiLink routerLink="/components/input-password"
-                    ><code>InputPassword</code></a
-                >:
+                <a tuiLink routerLink="/components/input-password">
+                    <code>InputPassword</code>
+                </a>
             </p>
             <tui-primitive-textfield-example-1
-                hintContent="Additional information"
+                class="b-form"
                 [(ngModel)]="password"
             >
                 Type a password
@@ -60,11 +60,11 @@
                 Component label
             </tui-primitive-textfield>
         </tui-doc-demo>
-        <ng-template #template="polymorpheus" polymorpheus let-item>
+        <ng-template #template let-item>
             <tui-avatar class="avatar" size="xs" [text]="item"></tui-avatar>
             {{item}}
         </ng-template>
-        <ng-template #tuiIconInteractiveContent="polymorpheus" polymorpheus>
+        <ng-template #interactiveContent>
             <tui-svg
                 class="icon-button"
                 src="tuiIconCalendarLarge"
@@ -103,7 +103,7 @@
                 i18n
                 documentationPropertyName="iconContent"
                 documentationPropertyMode="input"
-                documentationPropertyType="PolymorpheusContent | null"
+                documentationPropertyType="PolymorpheusContent"
                 [documentationPropertyValues]="iconVariants"
                 [(documentationPropertyValue)]="selectedIcon"
             >
@@ -204,9 +204,7 @@
                 [items]="themes"
                 [(ngModel)]="theme"
             ></tui-radio-list>
-            <ng-template i18n #label="polymorpheus" polymorpheus>
-                Theming sample
-            </ng-template>
+            <ng-template i18n #label> Theming sample </ng-template>
             <label
                 tuiLabel
                 class="theme-wrapper label"

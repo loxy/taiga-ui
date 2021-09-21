@@ -3,15 +3,17 @@ name: Deploy demo to gh-pages
 on:
   push:
     branches:
-      - main
-    paths:
-      - 'projects/**'
-      - 'angular.json'
-      - 'package.json'
+      - 'release/**'
+  workflow_dispatch:
+
+env:
+    NX_BRANCH: ${{ github.event.number }}
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js

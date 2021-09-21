@@ -130,7 +130,9 @@ export class TuiTableExample4 {
 
     onEnabled(enabled: string[]) {
         this.enabled = enabled;
-        this.columns = enabled.map(column => KEYS[column]);
+        this.columns = this.initial
+            .filter(column => enabled.includes(column))
+            .map(column => KEYS[column]);
     }
 
     onDirection(direction: -1 | 1) {
@@ -146,7 +148,7 @@ export class TuiTableExample4 {
     }
 
     isMatch(value: unknown): boolean {
-        return TUI_DEFAULT_MATCHER(value, this.search);
+        return !!this.search && TUI_DEFAULT_MATCHER(value, this.search);
     }
 
     getAge(user: User): number {

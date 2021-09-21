@@ -1,3 +1,4 @@
+import {AnimationOptions} from '@angular/animations';
 import {DOCUMENT} from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -7,15 +8,15 @@ import {
     NgZone,
     Optional,
 } from '@angular/core';
+import {ANIMATION_FRAME} from '@ng-web-apis/common';
 import {tuiZoneOptimized} from '@taiga-ui/cdk';
 import {tuiFadeIn} from '@taiga-ui/core/animations';
 import {MODE_PROVIDER} from '@taiga-ui/core/providers';
-import {TUI_ELEMENT_REF, TUI_MODE, TUI_SCROLL_REF} from '@taiga-ui/core/tokens';
+import {TUI_ANIMATION_OPTIONS, TUI_MODE, TUI_SCROLL_REF} from '@taiga-ui/core/tokens';
 import {TuiBrightness} from '@taiga-ui/core/types';
-import {interval, Observable} from 'rxjs';
-import {distinctUntilChanged, map, startWith} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {distinctUntilChanged, map, startWith, throttleTime} from 'rxjs/operators';
 
-// @bad TODO: handle click on bar to scroll to that position
 // @dynamic
 @Component({
     selector: 'tui-scroll-controls',
@@ -23,31 +24,33 @@ import {distinctUntilChanged, map, startWith} from 'rxjs/operators';
     styleUrls: ['./scroll-controls.style.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [tuiFadeIn],
-    providers: [
-        MODE_PROVIDER,
-        {
-            provide: TUI_ELEMENT_REF,
-            useExisting: ElementRef,
-        },
-    ],
+    providers: [MODE_PROVIDER],
     host: {
         '($.data-mode.attr)': 'mode$',
     },
 })
 export class TuiScrollControlsComponent {
-    readonly refresh$ = interval(300).pipe(
+    readonly refresh$ = this.animationFrame$.pipe(
+        throttleTime(300),
         map(() => this.scrollbars),
         startWith([false, false]),
         distinctUntilChanged((a, b) => a[0] === b[0] && a[1] === b[1]),
         tuiZoneOptimized(this.ngZone),
     );
 
+    readonly animation = {
+        value: '',
+        ...this.options,
+    } as const;
+
     constructor(
+        @Inject(TUI_ANIMATION_OPTIONS) private readonly options: AnimationOptions,
         @Inject(NgZone) private readonly ngZone: NgZone,
         @Inject(DOCUMENT) private readonly documentRef: Document,
         @Optional()
         @Inject(TUI_SCROLL_REF)
         private readonly scrollRef: ElementRef<HTMLElement> | null,
+        @Inject(ANIMATION_FRAME) private readonly animationFrame$: Observable<number>,
         @Inject(TUI_MODE) readonly mode$: Observable<TuiBrightness | null>,
     ) {}
 

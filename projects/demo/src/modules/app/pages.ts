@@ -1,6 +1,7 @@
 import {TuiDocPages} from '@taiga-ui/addon-doc';
 
 export const pages: TuiDocPages = [
+    // Documentation
     {
         section: $localize`Documentation`,
         title: $localize`Getting started`,
@@ -32,6 +33,27 @@ export const pages: TuiDocPages = [
         keywords: 'related, libraries, other, friendly, npm, packages',
         route: 'related',
     },
+    {
+        section: $localize`Documentation`,
+        title: $localize`Testing`,
+        subPages: [
+            {
+                section: $localize`Documentation`,
+                title: $localize`Disable animation`,
+                keywords:
+                    'test, tests, testing, cypress, тестирование, тесты, тест, tips, советы',
+                route: '/testing/disable-animation',
+            },
+            {
+                section: $localize`Documentation`,
+                title: $localize`Our screenshot bot`,
+                keywords:
+                    'test, tests, testing, cypress, тестирование, тесты, тест, tips, советы, github, github-app, bot, screenshot',
+                route: `/testing/screenshot-bot`,
+            },
+        ],
+    },
+    // Common
     {
         section: $localize`Common`,
         title: $localize`Typography`,
@@ -107,6 +129,7 @@ export const pages: TuiDocPages = [
             },
         ],
     },
+    // Customization
     {
         section: $localize`Customization`,
         title: `i18n`,
@@ -134,9 +157,10 @@ export const pages: TuiDocPages = [
     {
         section: $localize`Customization`,
         title: `Icon set`,
-        keywords: 'icons, svg, theme, custom, style',
+        keywords: 'icons, svg, theme, custom, style, sanitizer',
         route: 'icon-set',
     },
+    // Components
     {
         section: $localize`Components`,
         title: 'Accordion',
@@ -325,7 +349,7 @@ export const pages: TuiDocPages = [
             {
                 section: $localize`Components`,
                 title: 'HostedDropdown',
-                keywords: 'dropdown, контекст, выпадашка, дропдаун, меню, menu',
+                keywords: 'dropdown, hover, контекст, выпадашка, дропдаун, меню, menu',
                 route: '/components/hosted-dropdown',
             },
         ],
@@ -526,6 +550,13 @@ export const pages: TuiDocPages = [
                     'wysiwyg, редактор, текст, html, rich, text, input, инпут, ввод',
                 route: '/components/editor',
             },
+            {
+                section: $localize`Components`,
+                title: 'Editor[new]',
+                keywords:
+                    'wysiwyg, editor, редактор, текст, html, rich, text, input, инпут, ввод',
+                route: '/components/editor-new',
+            },
         ],
     },
     {
@@ -595,6 +626,33 @@ export const pages: TuiDocPages = [
                 keywords:
                     'mobile, потянуть, обновление, лоадер, loader, крутилка, загрузка',
                 route: '/components/pull-to-refresh',
+            },
+        ],
+    },
+    {
+        section: $localize`Components`,
+        title: 'Progress',
+        subPages: [
+            {
+                section: $localize`Components`,
+                title: 'ProgressBar',
+                keywords:
+                    'progress, bar, progress-bar, индикатор, загрузка, прогресс, бар',
+                route: '/components/progress-bar',
+            },
+            {
+                section: $localize`Components`,
+                title: 'ProgressCircle',
+                keywords:
+                    'progress, circle, ring, progress-circle, progress-ring, индикатор, загрузка, прогресс',
+                route: '/components/progress-circle',
+            },
+            {
+                section: $localize`Components`,
+                title: 'ProgressSegmented',
+                keywords:
+                    'progress, progress-segmented, индикатор, загрузка, прогресс, segment, segments, segmented',
+                route: '/components/progress-segmented',
             },
         ],
     },
@@ -768,6 +826,7 @@ export const pages: TuiDocPages = [
         keywords: 'editor, редактор, текст, html, rich, text, input, инпут, ввод',
         route: '/components/toolbar',
     },
+    // Navigation
     {
         section: $localize`Navigation`,
         title: 'Breadcrumbs',
@@ -793,6 +852,7 @@ export const pages: TuiDocPages = [
         keywords: 'mobile, ios, android, шаги, таб, tab, tabs',
         route: '/navigation/tabs',
     },
+    // Tools
     {
         section: $localize`Tools`,
         title: $localize`Decorators`,
@@ -838,15 +898,21 @@ export const pages: TuiDocPages = [
             },
             {
                 section: $localize`Tools`,
-                title: 'Color',
-                keywords: 'цвет, текст, фон',
-                route: '/directives/color',
+                title: 'DescribedBy',
+                keywords: '',
+                route: '/directives/described-by',
             },
             {
                 section: $localize`Tools`,
                 title: 'Dropdown',
                 keywords: 'dropdown, контекст, выпадашка, дропдаун, Context',
                 route: '/directives/dropdown',
+            },
+            {
+                section: $localize`Tools`,
+                title: 'DropdownContext',
+                keywords: 'dropdown, контекст, выпадашка, дропдаун, Context, right-click',
+                route: '/directives/dropdown-context',
             },
             {
                 section: $localize`Tools`,
@@ -867,6 +933,12 @@ export const pages: TuiDocPages = [
                 title: 'Element',
                 keywords: 'element, elementref, nativeelement, tag',
                 route: 'directives/element',
+            },
+            {
+                section: $localize`Tools`,
+                title: 'For',
+                keywords: 'loading, cycle, empty, list, iterate',
+                route: 'directives/for',
             },
             {
                 section: $localize`Tools`,
@@ -892,6 +964,12 @@ export const pages: TuiDocPages = [
                 keywords:
                     'tooltip, тултип, hint, подсказка, помощь, help, manual, программный, хинт',
                 route: '/directives/manual-hint',
+            },
+            {
+                section: $localize`Tools`,
+                title: 'Overscroll',
+                keywords: 'overscroll, scroll, скролл',
+                route: '/directives/overscroll',
             },
             {
                 section: $localize`Tools`,
@@ -988,6 +1066,13 @@ export const pages: TuiDocPages = [
                 title: 'Filter',
                 keywords: 'filter, совпадения, ngfor, for, match, пайп, pipe',
                 route: '/pipes/filter',
+            },
+            {
+                section: $localize`Tools`,
+                title: 'FilterByInput',
+                keywords:
+                    'filter, совпадения, ngfor, for, match, пайп, pipe, input, combobox',
+                route: '/pipes/filter-by-input',
             },
             {
                 section: $localize`Tools`,
@@ -1092,6 +1177,12 @@ export const pages: TuiDocPages = [
                 keywords: `Инструменты, утилиты, miscellaneous, прочие, assert, isNil, isPresent, flatLength,
                            getPaymentSystem, syncObject`,
                 route: '/utils/miscellaneous',
+            },
+            {
+                section: $localize`Tools`,
+                title: $localize`Tokens`,
+                keywords: `токены tokens`,
+                route: '/utils/tokens',
             },
         ],
     },

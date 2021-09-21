@@ -24,16 +24,18 @@ import {
     TuiContextWithImplicit,
     tuiDefaultProp,
     TuiFocusableElementAccessor,
-    TuiInputMode,
+    TuiInputModeT,
     tuiRequiredSetter,
 } from '@taiga-ui/cdk';
 import {
     formatPhone,
     TUI_DATA_LIST_HOST,
+    TUI_TEXTFIELD_CLEANER,
     TuiDataListDirective,
     TuiDataListHost,
     TuiHostedDropdownComponent,
     TuiPrimitiveTextfieldComponent,
+    TuiTextfieldCleanerDirective,
     TuiTextMaskOptions,
 } from '@taiga-ui/core';
 import {Observable} from 'rxjs';
@@ -61,7 +63,8 @@ const NON_PLUS_AND_DIGITS_REGEX = /[ \-_\(\)]/g;
 })
 export class TuiInputPhoneComponent
     extends AbstractTuiControl<string>
-    implements TuiFocusableElementAccessor, TuiDataListHost<string> {
+    implements TuiFocusableElementAccessor, TuiDataListHost<string>
+{
     @Input('countryCode')
     @tuiRequiredSetter()
     set countryCodeSetter(countryCode: string) {
@@ -129,6 +132,8 @@ export class TuiInputPhoneComponent
         @Inject(ChangeDetectorRef) changeDetectorRef: ChangeDetectorRef,
         @Inject(SELECTION_STREAM)
         selection$: Observable<unknown>,
+        @Inject(TUI_TEXTFIELD_CLEANER)
+        private readonly textfieldCleaner: TuiTextfieldCleanerDirective,
     ) {
         super(control, changeDetectorRef);
 
@@ -156,8 +161,16 @@ export class TuiInputPhoneComponent
             : this.search || '';
     }
 
-    get inputMode(): TuiInputMode {
-        return this.allowText ? TuiInputMode.Text : TuiInputMode.Numeric;
+    get inputMode(): TuiInputModeT {
+        return this.allowText ? 'text' : 'numeric';
+    }
+
+    get canOpen(): boolean {
+        return !this.computedDisabled && !this.readOnly && !!this.datalist;
+    }
+
+    get canClean(): boolean {
+        return this.nativeValue !== this.countryCode && this.textfieldCleaner.cleaner;
     }
 
     onHovered(hovered: boolean) {
@@ -205,6 +218,8 @@ export class TuiInputPhoneComponent
     }
 
     onValueChange(value: string) {
+        value = value === '' ? this.countryCode : value;
+
         const parsed = isText(value)
             ? value
             : value.replace(NON_PLUS_AND_DIGITS_REGEX, '');
