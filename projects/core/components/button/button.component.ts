@@ -21,7 +21,7 @@ import {
     TuiHoveredService,
     watch,
 } from '@taiga-ui/cdk';
-import {TuiAppearance, TuiButtonShape} from '@taiga-ui/core/enums';
+import {TuiAppearance} from '@taiga-ui/core/enums';
 import {TuiSizeS, TuiSizeXL, TuiSizeXS} from '@taiga-ui/core/types';
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
 import {Observable} from 'rxjs';
@@ -43,7 +43,8 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class TuiButtonComponent
     extends AbstractTuiInteractive
-    implements TuiFocusableElementAccessor {
+    implements TuiFocusableElementAccessor
+{
     @Input()
     @HostBinding('attr.data-appearance')
     @tuiDefaultProp()
@@ -64,7 +65,7 @@ export class TuiButtonComponent
     @Input()
     @HostBinding('attr.data-tui-host-shape')
     @tuiDefaultProp()
-    shape: TuiButtonShape | null = null;
+    shape: 'square' | 'rounded' | null = null;
 
     @Input()
     @HostBinding('class._loading')
@@ -106,7 +107,7 @@ export class TuiButtonComponent
     }
 
     get focused(): boolean {
-        return isNativeFocused(this.elementRef.nativeElement);
+        return !this.showLoader && isNativeFocused(this.elementRef.nativeElement);
     }
 
     get loaderSize(): TuiSizeS {

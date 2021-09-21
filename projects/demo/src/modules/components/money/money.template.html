@@ -10,6 +10,11 @@
             used in a text
         </p>
 
+        <p i18n>
+            Number formatting can be customized by using
+            <a tuiLink routerLink="/utils/tokens">TUI_NUMBER_FORMAT</a>
+        </p>
+
         <tui-doc-example
             id="currency"
             i18n-heading
@@ -81,7 +86,7 @@
                 i18n
                 documentationPropertyName="decimal"
                 documentationPropertyMode="input"
-                documentationPropertyType="TuiDecimal"
+                documentationPropertyType="TuiDecimalT"
                 [documentationPropertyValues]="decimalVariants"
                 [(documentationPropertyValue)]="decimal"
             >
@@ -113,7 +118,7 @@
                 i18n
                 documentationPropertyName="sign"
                 documentationPropertyMode="input"
-                documentationPropertyType="TuiMoneySign"
+                documentationPropertyType="TuiMoneySignT"
                 [documentationPropertyValues]="signVariants"
                 [(documentationPropertyValue)]="sign"
             >

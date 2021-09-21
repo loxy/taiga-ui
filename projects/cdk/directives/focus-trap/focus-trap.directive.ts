@@ -10,7 +10,7 @@ import {
 import {containsOrAfter} from '@taiga-ui/cdk/utils/dom';
 import {
     blurNativeFocused,
-    getClosestKeyboardFocusable,
+    getClosestFocusable,
     getNativeFocused,
     setNativeFocused,
 } from '@taiga-ui/cdk/utils/focus';
@@ -52,7 +52,7 @@ export class TuiFocusTrapDirective implements OnDestroy {
             return;
         }
 
-        const focusable = getClosestKeyboardFocusable(
+        const focusable = getClosestFocusable(
             this.elementRef.nativeElement,
             false,
             this.elementRef.nativeElement,
@@ -73,6 +73,7 @@ export class TuiFocusTrapDirective implements OnDestroy {
          * therefore using Promise instead of setTimeout
          */
         Promise.resolve().then(() => {
+            // TODO: iframe warning
             if (this.activeElement instanceof HTMLElement) {
                 setNativeFocused(this.activeElement);
             }
